@@ -1,0 +1,46 @@
+Summary,Issue key,Issue id,Issue Type,Status,Project key,Project name,Project type,Project lead,Project description,Project url,Priority,Resolution,Assignee,Reporter,Creator,Created,Updated,Last Viewed,Resolved,Affects Version/s,Fix Version/s,Component/s,Due Date,Votes,Labels,Description,Environment,Log Work,Log Work,Log Work,Original Estimate,Remaining Estimate,Time Spent,Work Ratio,Σ Original Estimate,Σ Remaining Estimate,Σ Time Spent,Security Level,Custom field (Affects version (Component)),Custom field (Affects version (Component)),Custom field (Attachment count),Custom field (Blog - New Blog Administrators),Custom field (Blog - New Blog PMC),Custom field (Blog - Write access),Custom field (Blog Administrator?),Custom field (Blogs - Admin for blog),Custom field (Blogs - Email Address),Custom field (Blogs - Existing Blog Access Level),Custom field (Blogs - Existing Blog Name),Custom field (Blogs - New Blog Write Access),Custom field (Blogs - Username),Custom field (Browser Version),Custom field (Bug Category),Custom field (Bugtraq ID),Custom field (Bugzilla - Email Notification Address),Custom field (Bugzilla - List of usernames),Custom field (Bugzilla - PMC Name),Custom field (Bugzilla - Project Name),Custom field (Bugzilla Id),Custom field (Bugzilla Id),Custom field (Cc),Custom field (Change Category),Custom field (Cloudstack-CVSS),Custom field (Code Review),Custom field (Codeplex ID),Custom field (Complexity),Custom field (Confluence Space Admin),Custom field (Customer(s)),Custom field (Database),Custom field (Date of First Response),Custom field (Discovered By),Custom field (Docs Text),Custom field (Enable Automatic Patch Review),Custom field (Epic Color),Custom field (Epic Colour),Custom field (Epic Link),Custom field (Epic Name),Custom field (Epic Status),Custom field (Estimated Complexity),Custom field (Estimated Complexity),Custom field (Evidence Of Open Source Adoption),Custom field (Evidence Of Open Source Adoption),Custom field (Evidence Of Registration),Custom field (Evidence Of Registration),Custom field (Evidence Of Use On World Wide Web),Custom field (Evidence Of Use On World Wide Web),Custom field (Existing GitBox Approval),Custom field (External issue ID),Custom field (External issue ID),Custom field (External issue URL),Custom field (Fix priority),Custom field (Fix version (Component)),Custom field (Fix version (Component)),Custom field (Git Notification Mailing List),Custom field (Git Repository Import Path),Custom field (Git Repository Name),Custom field (Git Repository Type),Custom field (GitHub Options),Custom field (Github Integration),Custom field (Github Integrations - Other),Custom field (Global Rank),Custom field (INFRA - Subversion Repository Path),Custom field (Import Existing Data From),Custom field (Initial Confluence Contributors),Custom field (Issues Mailing List),Custom field (JDK Version),Custom field (JIRA Admin),Custom field (Last public comment date),Custom field (Level of effort),Custom field (Level of effort),Custom field (Machine Readable Info),Custom field (New-TLP-TLPName),Custom field (O/S Version),Custom field (Old Scarab Id),Custom field (Podling),Custom field (Priority),Custom field (Priority),Custom field (Priority),Custom field (Priority),Custom field (Priority),Custom field (Project),Custom field (Project Key),Custom field (Project Name),Custom field (Proposed Name),Custom field (Protected Branch),Custom field (RYG),Custom field (Rank),Custom field (Rank (Obsolete)),Custom field (Release Note),Custom field (Review Date),Custom field (Review Date),Custom field (Reviewer),Custom field (Reviewer),Custom field (Severity),Custom field (Severity),Custom field (Severity),Custom field (Severity),Custom field (Severity),Custom field (Severity),Custom field (Shepherd),Custom field (Skill Level),Custom field (Skill Level),Custom field (Skill Level),Custom field (Skill Level),Custom field (Source Control Link),Custom field (Space Description),Custom field (Space Key),Custom field (Space Name),Custom field (Status Whiteboard),Custom field (Status Whiteboard),Custom field (Status Whiteboard),Custom field (Status Whiteboard),Custom field (Story Points),Custom field (Tags),Custom field (Tags),Custom field (Test and Documentation Plan),Custom field (Testcase included),Custom field (Tester),Custom field (Tester),Custom field (Urgency),Custom field (Workaround),Custom field (Workaround),Custom field (old issue number),Comment,Comment
+maven-assemly-plugin complains that group id is too big and fails build on macOS Mojave 10.14.6 (18G87),GORA-622,13250172,Bug,Resolved,GORA,Apache Gora,software,djkevincr,"The Apache Gora™ open source framework provides an in-memory data model and persistence for big data. Gora supports persisting to column stores, key value stores, document stores, distributed in-memory key/value stores, in-memory data grids, in-memory caches, distributed multi-model stores, and hybrid in-memory architectures. Gora also enables analysis of data with extensive Apache Hadoop MapReduce and Apache Spark support.",http://gora.apache.org,Blocker,Fixed,lewismc,lewismc,lewismc,12/Aug/19 03:20,12/Aug/19 15:44,18/Sep/20 09:09,12/Aug/19 14:59,0.9,0.9,build process,,0,pull-request-available,"Building Gora branch under system detailed in the environment, I experience very similar results to what is described at OPENNLP-998
+Pull request coming up to upgrade the maven-assemly-plugin and then specify posix","macOS Mojave 10.14.6 (18G87)
+Gora master branch d9b4b8eb73c84806971a7375fe35c038a0a10197","lewismc commented on pull request #185: GORA-622 maven-assemly-plugin complains that group id is too big and fails build on macOS Mojave 10.14.6 (18G87)
+URL: https://github.com/apache/gora/pull/185
+ 
+ 
+   This pr addresses https://issues.apache.org/jira/browse/GORA-622
+ 
+----------------------------------------------------------------
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+ 
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org
+;12/Aug/19 03:22;githubbot;600","djkevincr commented on issue #185: GORA-622 maven-assemly-plugin complains that group id is too big and fails build on macOS Mojave 10.14.6 (18G87)
+URL: https://github.com/apache/gora/pull/185#issuecomment-520291379
+ 
+ 
+   @lewismc Shall we call off RC2 and add this to 0.9 release?
+ 
+----------------------------------------------------------------
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+ 
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org
+;12/Aug/19 03:43;githubbot;600","djkevincr commented on pull request #185: GORA-622 maven-assemly-plugin complains that group id is too big and fails build on macOS Mojave 10.14.6 (18G87)
+URL: https://github.com/apache/gora/pull/185
+ 
+ 
+   
+ 
+----------------------------------------------------------------
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+ 
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org
+;12/Aug/19 14:56;githubbot;600",3600,1800,1800,50%,3600,1800,1800,,,,0.0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,2019-08-12 14:59:01.13,,,false,,,,,,,,,,,,,,,,,,,,,,,,,,,,9223372036854775807,,,,,,,Mon Aug 12 15:44:44 UTC 2019,,,,,,,,,,,,,,,,,,,"0|z05jzs:",9223372036854775807,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"12/Aug/19 14:59;djkevincr;[~lewismc] Thank you for addressing this issue.","12/Aug/19 15:44;hudson;SUCCESS: Integrated in Jenkins build gora-trunk #1808 (See [https://builds.apache.org/job/gora-trunk/1808/])
+GORA-622 maven-assemly-plugin complains that group id is too big and (lewis.mcgibbney: rev 9975533547c7d2c15f454faf21d28f2a0a24dd58)
+* (edit) pom.xml
+"

@@ -1,0 +1,125 @@
+Summary,Issue key,Issue id,Issue Type,Status,Project key,Project name,Project type,Project lead,Project description,Project url,Priority,Resolution,Assignee,Reporter,Creator,Created,Updated,Last Viewed,Resolved,Affects Version/s,Fix Version/s,Component/s,Due Date,Votes,Description,Environment,Log Work,Log Work,Log Work,Log Work,Log Work,Log Work,Original Estimate,Remaining Estimate,Time Spent,Work Ratio,Σ Original Estimate,Σ Remaining Estimate,Σ Time Spent,Security Level,Custom field (Affects version (Component)),Custom field (Attachment count),Custom field (Blog - New Blog Administrators),Custom field (Blog - New Blog PMC),Custom field (Blog - Write access),Custom field (Blog Administrator?),Custom field (Blogs - Admin for blog),Custom field (Blogs - Email Address),Custom field (Blogs - Existing Blog Access Level),Custom field (Blogs - Existing Blog Name),Custom field (Blogs - New Blog Write Access),Custom field (Blogs - Username),Custom field (Bug Category),Custom field (Bugzilla - Email Notification Address),Custom field (Bugzilla - List of usernames),Custom field (Bugzilla - PMC Name),Custom field (Bugzilla - Project Name),Custom field (Bugzilla Id),Custom field (Bugzilla Id),Custom field (Change Category),Custom field (Complexity),Custom field (Date of First Response),Custom field (Discovered By),Custom field (Docs Text),Custom field (Enable Automatic Patch Review),Custom field (Epic Link),Custom field (Estimated Complexity),Custom field (Evidence Of Open Source Adoption),Custom field (Evidence Of Registration),Custom field (Evidence Of Use On World Wide Web),Custom field (Existing GitBox Approval),Custom field (External issue URL),Custom field (Fix version (Component)),Custom field (Git Notification Mailing List),Custom field (Git Repository Import Path),Custom field (Git Repository Name),Custom field (Git Repository Type),Custom field (GitHub Options),Custom field (Github Integration),Custom field (Github Integrations - Other),Custom field (Global Rank),Custom field (INFRA - Subversion Repository Path),Custom field (Initial Confluence Contributors),Custom field (Last public comment date),Custom field (Level of effort),Custom field (Machine Readable Info),Custom field (New-TLP-TLPName),Custom field (Priority),Custom field (Project),Custom field (Protected Branch),Custom field (Rank),Custom field (Rank (Obsolete)),Custom field (Review Date),Custom field (Reviewer),Custom field (Severity),Custom field (Severity),Custom field (Skill Level),Custom field (Source Control Link),Custom field (Space Description),Custom field (Space Key),Custom field (Space Name),Custom field (Tags),Custom field (Test and Documentation Plan),Custom field (Testcase included),Custom field (Tester),Custom field (Workaround),Comment,Comment,Comment,Comment,Comment,Comment,Comment
+java.lang.ClassCastException when writing BYTES to BigQuery,BEAM-7542,13239036,Bug,Resolved,BEAM,Beam,software,kenn,"Apache Beam is a programming model, SDKs, and runners for defining and executing data processing pipelines.",https://beam.apache.org,P2,Fixed,viktor.gerdin,viktor.gerdin,viktor.gerdin,12/06/2019 13:52,16/05/2020 14:02,17/09/2020 16:07,14/06/2019 14:53,2.13.0,2.14.0,io-java-gcp,,0,"When trying to use BigQueryIO.write() with BigQueryUtils.toTableRow() with a BYTES field it breaks with 
+{noformat}
+java.lang.ClassCastException: [B cannot be cast to java.nio.ByteBuffer at org.apache.beam.sdk.io.gcp.bigquery.BigQueryUtils.fromBeamField(BigQueryUtils.java:280){noformat}
+BigQueryUtils.fromBeamField() attempts to cast fieldValue to java.nio.ByteBuffer but it is a byte[].
+
+Unit tests are not covering BYTES field type.","Running on OS X 10.14.5 (18F132), JRE 1.8.0_152, also in GCP DataFlow","vglocus commented on pull request #8858: [BEAM-7542] Fix faulty cast in BigQueryUtils
+URL: https://github.com/apache/beam/pull/8858
+ 
+ 
+   I wish to be able to write BYTES type fields to BigQuery.
+   
+   In BigQueryUtils (sdks/io/google-cloud-platform) when serialising a BYTES type BEAM field for BQ there is a faulty cast to java.nio.ByteBuffer while the value will always be a primitive byte array (see org.apache.beam.sdk.values.Row.Builder#verifyPrimitiveType).
+   
+   Trying to use BigQueryUtils when writing a BYTES field to BiqQuery will cause
+   `
+   java.lang.ClassCastException: [B cannot be cast to java.nio.ByteBuffer at org.apache.beam.sdk.io.gcp.bigquery.BigQueryUtils.fromBeamField(BigQueryUtils.java:280)
+   `
+   and the added tests in BigQueryUtilsTest will trigger this, and the changes to BigQueryUtils intends to solve it.
+   
+   ------------------------
+   
+   Thank you for your contribution! Follow this checklist to help us incorporate your contribution quickly and easily:
+   
+    - [ ] [**Choose reviewer(s)**](https://beam.apache.org/contribute/#make-your-change) and mention them in a comment (`R: @username`).
+    - [ ] Format the pull request title like `[BEAM-XXX] Fixes bug in ApproximateQuantiles`, where you replace `BEAM-XXX` with the appropriate JIRA issue, if applicable. This will automatically link the pull request to the issue.
+    - [ ] If this contribution is large, please file an Apache [Individual Contributor License Agreement](https://www.apache.org/licenses/icla.pdf).
+   
+   Post-Commit Tests Status (on master branch)
+   ------------------------------------------------------------------------------------------------
+   
+   Lang | SDK | Apex | Dataflow | Flink | Gearpump | Samza | Spark
+   --- | --- | --- | --- | --- | --- | --- | ---
+   Go | [![Build Status](https://builds.apache.org/job/beam_PostCommit_Go/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Go/lastCompletedBuild/) | --- | --- | [![Build Status](https://builds.apache.org/job/beam_PostCommit_Go_VR_Flink/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Go_VR_Flink/lastCompletedBuild/) | --- | --- | [![Build Status](https://builds.apache.org/job/beam_PostCommit_Go_VR_Spark/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Go_VR_Spark/lastCompletedBuild/)
+   Java | [![Build Status](https://builds.apache.org/job/beam_PostCommit_Java/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Java/lastCompletedBuild/) | [![Build Status](https://builds.apache.org/job/beam_PostCommit_Java_ValidatesRunner_Apex/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Java_ValidatesRunner_Apex/lastCompletedBuild/) | [![Build Status](https://builds.apache.org/job/beam_PostCommit_Java_ValidatesRunner_Dataflow/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Java_ValidatesRunner_Dataflow/lastCompletedBuild/) | [![Build Status](https://builds.apache.org/job/beam_PostCommit_Java_ValidatesRunner_Flink/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Java_ValidatesRunner_Flink/lastCompletedBuild/)<br>[![Build Status](https://builds.apache.org/job/beam_PostCommit_Java_PVR_Flink_Batch/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Java_PVR_Flink_Batch/lastCompletedBuild/)<br>[![Build Status](https://builds.apache.org/job/beam_PostCommit_Java_PVR_Flink_Streaming/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Java_PVR_Flink_Streaming/lastCompletedBuild/) | [![Build Status](https://builds.apache.org/job/beam_PostCommit_Java_ValidatesRunner_Gearpump/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Java_ValidatesRunner_Gearpump/lastCompletedBuild/) | [![Build Status](https://builds.apache.org/job/beam_PostCommit_Java_ValidatesRunner_Samza/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Java_ValidatesRunner_Samza/lastCompletedBuild/) | [![Build Status](https://builds.apache.org/job/beam_PostCommit_Java_ValidatesRunner_Spark/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Java_ValidatesRunner_Spark/lastCompletedBuild/)<br>[![Build Status](https://builds.apache.org/job/beam_PostCommit_Java_PVR_Spark_Batch/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Java_PVR_Spark_Batch/lastCompletedBuild/)
+   Python | [![Build Status](https://builds.apache.org/job/beam_PostCommit_Python_Verify/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Python_Verify/lastCompletedBuild/)<br>[![Build Status](https://builds.apache.org/job/beam_PostCommit_Python3_Verify/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Python3_Verify/lastCompletedBuild/) | --- | [![Build Status](https://builds.apache.org/job/beam_PostCommit_Py_VR_Dataflow/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Py_VR_Dataflow/lastCompletedBuild/) <br> [![Build Status](https://builds.apache.org/job/beam_PostCommit_Py_ValCont/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Py_ValCont/lastCompletedBuild/) | [![Build Status](https://builds.apache.org/job/beam_PreCommit_Python_PVR_Flink_Cron/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PreCommit_Python_PVR_Flink_Cron/lastCompletedBuild/) | --- | --- | [![Build Status](https://builds.apache.org/job/beam_PostCommit_Python_VR_Spark/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PostCommit_Python_VR_Spark/lastCompletedBuild/)
+   
+   Pre-Commit Tests Status (on master branch)
+   ------------------------------------------------------------------------------------------------
+   
+   --- |Java | Python | Go | Website
+   --- | --- | --- | --- | ---
+   Non-portable | [![Build Status](https://builds.apache.org/job/beam_PreCommit_Java_Cron/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PreCommit_Java_Cron/lastCompletedBuild/) | [![Build Status](https://builds.apache.org/job/beam_PreCommit_Python_Cron/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PreCommit_Python_Cron/lastCompletedBuild/) | [![Build Status](https://builds.apache.org/job/beam_PreCommit_Go_Cron/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PreCommit_Go_Cron/lastCompletedBuild/) | [![Build Status](https://builds.apache.org/job/beam_PreCommit_Website_Cron/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PreCommit_Website_Cron/lastCompletedBuild/) 
+   Portable | --- | [![Build Status](https://builds.apache.org/job/beam_PreCommit_Portable_Python_Cron/lastCompletedBuild/badge/icon)](https://builds.apache.org/job/beam_PreCommit_Portable_Python_Cron/lastCompletedBuild/) | --- | ---
+   
+   See [.test-infra/jenkins/README](https://github.com/apache/beam/blob/master/.test-infra/jenkins/README.md) for trigger phrase, status and link of all Jenkins jobs.
+   
+ 
+----------------------------------------------------------------
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+ 
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org
+;14/Jun/19 10:45;githubbot;600","vglocus commented on issue #8858: [BEAM-7542] Fix faulty cast in BigQueryUtils
+URL: https://github.com/apache/beam/pull/8858#issuecomment-502072907
+ 
+ 
+   @kanterov Ping
+ 
+----------------------------------------------------------------
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+ 
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org
+;14/Jun/19 11:26;githubbot;600","vglocus commented on issue #8858: [BEAM-7542] Fix faulty cast in BigQueryUtils
+URL: https://github.com/apache/beam/pull/8858#issuecomment-502072907
+ 
+ 
+   R: @kanterov
+ 
+----------------------------------------------------------------
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+ 
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org
+;14/Jun/19 11:27;githubbot;600","kanterov commented on issue #8858: [BEAM-7542] Fix faulty cast in BigQueryUtils
+URL: https://github.com/apache/beam/pull/8858#issuecomment-502074213
+ 
+ 
+   Run Java_Examples_Dataflow PreCommit
+ 
+----------------------------------------------------------------
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+ 
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org
+;14/Jun/19 11:31;githubbot;600","kanterov commented on issue #8858: [BEAM-7542] Fix faulty cast in BigQueryUtils
+URL: https://github.com/apache/beam/pull/8858#issuecomment-502122629
+ 
+ 
+   LGTM :+1: 
+   
+   Congratulations with your first Beam contribution.
+ 
+----------------------------------------------------------------
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+ 
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org
+;14/Jun/19 14:06;githubbot;600","kanterov commented on pull request #8858: [BEAM-7542] Fix faulty cast in BigQueryUtils
+URL: https://github.com/apache/beam/pull/8858
+ 
+ 
+   
+ 
+----------------------------------------------------------------
+This is an automated message from the Apache Git Service.
+To respond to the message, please log on to GitHub and use the
+URL above to go to the specific comment.
+ 
+For queries about this service, please contact Infrastructure at:
+users@infra.apache.org
+;14/Jun/19 14:07;githubbot;600",86400,82800,3600,4%,86400,82800,3600,,,0,,,,,,,,,,,,,,,,,,,,52:33.0,,,FALSE,,,,,,,,,,,,,,,,9.22337E+18,,,Fri Jun 14 16:58:27 UTC 2019,,,,,,,0|z03nyo:,9.22337E+18,,,,,,,,,,,,,,,"13/Jun/19 08:52;kanterov;[~kedin] it looks like a big oversight and low hanging fruit to fix, WDYT about having it as a part of 2.14.0?","13/Jun/19 17:43;kedin;I think we should try to get this into 2.14. I can help review and merge it. But my understanding is that if it's not a regression then we shouldn't block the release just for this fix.
+
+[~viktor.gerdin], is this issue being actively worked on? ","14/Jun/19 00:48;tvalentyn;I came across an integration test that exercises BYTES recently: https://github.com/apache/beam/blob/82bf1ae76288b5c679beb58fa06a85b1dd3127d8/sdks/java/io/google-cloud-platform/src/test/java/org/apache/beam/sdk/io/gcp/bigquery/BigQueryToTableIT.java#L92 , not sure if it covers the codepath discussed here. Note that Bigquery IO expects BYTES to be base64-encoded by the user of the IO.",14/Jun/19 07:52;viktor.gerdin;[~kedin] I have a working copy running my pipeline and would gladly commit these for the greater good.,"14/Jun/19 08:55;iemejia;[~viktor.gerdin] please open the PR for this, we still have until next wednesday to get it in.",14/Jun/19 10:45;viktor.gerdin;PR submitted. That vglocus guy is me.,"14/Jun/19 16:58;kedin;Awesome, thank you for the contribution!"
