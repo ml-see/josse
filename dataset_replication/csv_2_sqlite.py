@@ -28,11 +28,12 @@ def read_csv(file):
     header = []
     raw_file = []
     with open(file, encoding="utf8") as f:
-        reader = csv.reader(f, quotechar='"', delimiter=',',
+        reader = csv.reader((line.replace('\0','') for line in f), quotechar='"', delimiter=',',
                             quoting=csv.QUOTE_ALL)
         for fr in reader:
             raw_file.append(fr)
     header = raw_file[0]
+
 
     data = []
     for row in raw_file[1:]:
@@ -78,8 +79,8 @@ def make_JOS_dataset(content=[]):
             if "description" == key.lower(): case["corpus"] = "\n".join([case["corpus"], raw_case[key]])
             if "issue key" == key.lower(): case["id"] = raw_case[key]
             try:
-                if "time spent" == key.lower(): case["actual_effort"] = float(raw_case[key])
-            except Exception:
+                if "time spent" == key.lower() and raw_case[key] != "": case["actual_effort"] = float(raw_case[key])
+            except Exception as e:
                 print(e)
             if "original estimate" == key.lower() and raw_case[key] != "": case["expert_estimated_effort"] = float(
                 raw_case[key])
@@ -115,7 +116,11 @@ def db_inseration(db, content=[]):
     for case in content:
         sql = "insert into `case`( `" + "`,`".join(case.keys()) + "`) values(" + ",".join(
             ["?" for i in case.values()]) + ")"
-        cur.execute(sql, [i for i in case.values()])
+        try:
+            cur.execute(sql, [i for i in case.values()])
+        except Exception as e:
+            pass
+
     conn.commit()
 
 if __name__ == "__main__":
@@ -124,7 +129,10 @@ if __name__ == "__main__":
     today_date = today.strftime("%d%m%Y")
 
     folder = input("What is the folder full path that contains CSV files:\n")
-    content = load_cvs_folder(folder)
+    content = load_cvs_folder(folder.strip())
 
     dataset = make_JOS_dataset(content)
-    db_inseration("D:\\JOS_original_"+today_date+".sqlite3", dataset)
+    db_name = "JOSSE_original_"+today_date+".sqlite3"
+    db_inseration(db_name, dataset)
+
+    print("Done! %d issues were loaded into %s" % (len(content),db_name))
