@@ -17,7 +17,7 @@ Using the JIRA user interface for a couple of open-source projects, it was possi
 The dataset is publicly accessible using its public Github repository. The Github repository URL is: 
 https://github.com/ml-see/josse
 
-You also can get an archived version of the replication pack that is stored in Zenodo using it DOI: 10.5281/zenodo.7022735
+You also can get an archived version of the dataset pack that is stored in Zenodo using it DOI: 10.5281/zenodo.7022735
 
 
 # How to Replicate the dataset
